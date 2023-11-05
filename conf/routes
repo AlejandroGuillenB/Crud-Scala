@@ -8,3 +8,10 @@ GET     /person/:id                 controllers.PersonController.getById(id: Int
 POST    /person/add                 controllers.PersonController.add
 PUT     /person/update/:id          controllers.PersonController.update(id: Int)
 DELETE  /person/delete/:id          controllers.PersonController.delete(id: Int)
+
+# USER
+GET     /user                       controllers.UserController.getAll
+GET     /user/:id                   controllers.UserController.getById(id: Int)
+POST    /user/add                   controllers.UserController.add
+PUT     /user/update/:id            controllers.UserController.update(id: Int)
+DELETE  /user/delete/:id            controllers.UserController.delete(id: Int)

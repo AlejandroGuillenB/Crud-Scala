@@ -17,7 +17,8 @@ class PersonController @Inject()(
 
   implicit val personFormat = Json.format[Person]
 
-  def getAll() = Action.async { implicit request: Request[AnyContent] =>
+  def getAll() = Action.async {
+    implicit request: Request[AnyContent] =>
       personService.listAllItems map { items =>
         Ok(Json.toJson(items))
       }
@@ -38,7 +39,7 @@ class PersonController @Inject()(
           Future.successful(BadRequest("Error!"))
         },
         data => {
-          val newPersonItem = Person(data.id, data.name, data.email, data.englishLevel, data.technicalKnows, data.linkCV)
+          val newPersonItem = Person(data.id, data.name, data.email, data.englishlevel, data.technicalknows, data.linkcv)
           personService.addItem(newPersonItem).map(_ => Redirect(routes.PersonController.getAll))
         }
       )
@@ -52,7 +53,7 @@ class PersonController @Inject()(
           Future.successful(BadRequest("Error!"))
         },
         data => {
-          val personItem = Person(id, data.name, data.email, data.englishLevel, data.technicalKnows, data.linkCV)
+          val personItem = Person(id, data.name, data.email, data.englishlevel, data.technicalknows, data.linkcv)
           personService.updateItem(personItem).map(_ => Redirect(routes.PersonController.getAll))
         }
       )

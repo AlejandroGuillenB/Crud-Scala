@@ -50,17 +50,17 @@ class ValidationData @Inject() () {
     true
   }
 
-  def validateEnglishLevel(englishLevel: String): Boolean = {
+  def validateEnglishLevel(englishlevel: String): Boolean = {
     if (this.valid) {
-      if (this.checkEmpty(englishLevel)) {
+      if (this.checkEmpty(englishlevel)) {
         this.message = "Gender is empty."
         return false
       } else {
-        if (!this.checkMinMaxString(englishLevel, 2, 2)) {
+        if (!this.checkMinMaxString(englishlevel, 2, 2)) {
           this.message = "Amount of character invalid for english level."
           return false
         } else {
-          if (!this.checkPattern(englishLevel, """^(A1|A2|B1|B2|C1)$""")) {
+          if (!this.checkPattern(englishlevel, """^(A1|A2|B1|B2|C1)$""")) {
             this.message = "Invalid english level."
             return false
           }

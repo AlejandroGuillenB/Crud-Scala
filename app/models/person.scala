@@ -10,9 +10,9 @@ import slick.jdbc.PostgresProfile.api._
 
 import scala.concurrent.{ExecutionContext, Future}
 
-case class Person(id: Int, name: String, email: String, englishLevel: String, technicalKnows: String, linkCV: String)
+case class Person(id: Int, name: String, email: String, englishlevel: String, technicalknows: String, linkcv: String)
 
-case class PersonFormData(id: Int, name: String, email: String, englishLevel: String, technicalKnows: String, linkCV: String)
+case class PersonFormData(id: Int, name: String, email: String, englishlevel: String, technicalknows: String, linkcv: String)
 
 
 object PersonForm {
@@ -21,9 +21,9 @@ object PersonForm {
       "id" -> number,
       "name" -> text,
       "email" -> text,
-      "englishLevel" -> text,
-      "technicalKnows" -> text,
-      "linkCV" -> text
+      "englishlevel" -> text,
+      "technicalknows" -> text,
+      "linkcv" -> text
     )(PersonFormData.apply)(PersonFormData.unapply)
   )
 }
@@ -35,13 +35,13 @@ class PersonTableDef(tag: Tag) extends Table[Person](tag, "person") {
 
   def email = column[String]("email")
 
-  def englishLevel = column[String]("englishLevel")
+  def englishlevel = column[String]("englishlevel")
 
-  def technicalKnows = column[String]("technicalKnows")
+  def technicalknows = column[String]("technicalknows")
 
-  def linkCV = column[String]("linkCV")
+  def linkcv = column[String]("linkcv")
 
-  override def * = (id, name, email, englishLevel, technicalKnows, linkCV) <> (Person.tupled, Person.unapply)
+  override def * = (id, name, email, englishlevel, technicalknows, linkcv) <> (Person.tupled, Person.unapply)
 }
 
 class PersonList @Inject()(
@@ -70,8 +70,8 @@ class PersonList @Inject()(
   def update(personItem: Person): Future[Int] = {
     dbConfig.db
       .run(personList.filter(_.id === personItem.id)
-        .map(person => (person.name, person.technicalKnows, person.englishLevel, person.linkCV))
-        .update(personItem.name, personItem.technicalKnows, personItem.englishLevel, personItem.linkCV)
+        .map(person => (person.name, person.technicalknows, person.englishlevel, person.linkcv))
+        .update(personItem.name, personItem.technicalknows, personItem.englishlevel, personItem.linkcv)
       )
   }
 
