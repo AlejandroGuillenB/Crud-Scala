@@ -15,3 +15,10 @@ GET     /user/:id                   controllers.UserController.getById(id: Int)
 POST    /user/add                   controllers.UserController.add
 PUT     /user/update/:id            controllers.UserController.update(id: Int)
 DELETE  /user/delete/:id            controllers.UserController.delete(id: Int)
+
+# ACCOUNT
+GET     /account                       controllers.AccountController.getAll
+GET     /account/:id                   controllers.AccountController.getById(id: Int)
+POST    /account/add                   controllers.AccountController.add
+PUT     /account/update/:id            controllers.AccountController.update(id: Int)
+DELETE  /account/delete/:id            controllers.AccountController.delete(id: Int)
