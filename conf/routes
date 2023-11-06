@@ -30,3 +30,10 @@ GET     /team/person/:person                    controllers.TeamController.getBy
 POST    /team/add                               controllers.TeamController.add()
 PUT     /team/update/:account/:person           controllers.TeamController.update(account: Int, person: Int)
 DELETE  /team/delete/:account/:person           controllers.TeamController.delete(account: Int, person: Int)
+
+# TEAMLOG
+GET     /teamlog                                   controllers.TeamLogController.getAll()
+GET     /teamlog/account/:account                  controllers.TeamLogController.getByAccount(account: String)
+GET     /teamlog/person/:person                    controllers.TeamLogController.getByPerson(person: String)
+GET     /teamlog/dateinit/:dateInit                controllers.TeamLogController.getByDateInit(dateInit: Long)
+GET     /teamlog/dateend/:dateEnd                  controllers.TeamLogController.getByDateEnd(dateEnd: Long)

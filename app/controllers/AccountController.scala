@@ -37,7 +37,7 @@ class AccountController @Inject()(
         },
         data => {
           val newAccountItem = Account(0,data.nameaccount, data.nameclient, data.request, data.liable)
-          accountService.addItem(newAccountItem).map(_ => Redirect(routes.AccountController.getAll))
+          accountService.addItem(newAccountItem).map(_ => Redirect(routes.AccountController.getAll()))
         }
       )
   }
@@ -51,7 +51,7 @@ class AccountController @Inject()(
         },
         data => {
           val accountItem = Account(id, data.nameaccount, data.nameclient, data.request, data.liable)
-          accountService.updateItem(accountItem).map(_ => Redirect(routes.AccountController.getAll))
+          accountService.updateItem(accountItem).map(_ => Redirect(routes.AccountController.getAll()))
         }
       )
   }
@@ -59,7 +59,7 @@ class AccountController @Inject()(
   def delete(id: Int) = Action.async {
     implicit request: Request[AnyContent] =>
       accountService.deleteItem(id) map { res =>
-        Redirect(routes.AccountController.getAll)
+        Redirect(routes.AccountController.getAll())
       }
   }
 }

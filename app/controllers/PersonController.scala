@@ -15,7 +15,7 @@ class PersonController @Inject()(
                                 )
   extends AbstractController(cc) {
 
-  implicit val personFormat = Json.format[Person]
+  implicit val personFormat: OFormat[Person] = Json.format[Person]
 
   def getAll() = Action.async {
     implicit request: Request[AnyContent] =>
@@ -33,28 +33,28 @@ class PersonController @Inject()(
 
   def add() = Action.async {
     implicit request: Request[AnyContent] =>
-      PersonForm.form.bindFromRequest.fold(
+      PersonForm.form.bindFromRequest().fold(
         errorForm => {
           errorForm.errors.foreach(println)
           Future.successful(BadRequest("Error!"))
         },
         data => {
           val newPersonItem = Person(data.id, data.name, data.email, data.englishlevel, data.technicalknows, data.linkcv)
-          personService.addItem(newPersonItem).map(_ => Redirect(routes.PersonController.getAll))
+          personService.addItem(newPersonItem).map(_ => Redirect(routes.PersonController.getAll()))
         }
       )
   }
 
   def update(id: Int) = Action.async {
     implicit request: Request[AnyContent] =>
-      PersonForm.form.bindFromRequest.fold(
+      PersonForm.form.bindFromRequest().fold(
         errorsForm => {
           errorsForm.errors.foreach(println)
           Future.successful(BadRequest("Error!"))
         },
         data => {
           val personItem = Person(id, data.name, data.email, data.englishlevel, data.technicalknows, data.linkcv)
-          personService.updateItem(personItem).map(_ => Redirect(routes.PersonController.getAll))
+          personService.updateItem(personItem).map(_ => Redirect(routes.PersonController.getAll()))
         }
       )
   }
@@ -62,7 +62,7 @@ class PersonController @Inject()(
   def delete(id: Int) = Action.async {
     implicit request: Request[AnyContent] =>
       personService.deleteItem(id) map { res =>
-        Redirect(routes.PersonController.getAll)
+        Redirect(routes.PersonController.getAll())
       }
   }
 }

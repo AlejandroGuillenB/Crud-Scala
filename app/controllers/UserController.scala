@@ -12,7 +12,7 @@ class UserController @Inject()(
                                  cc: ControllerComponents,
                                  userService: UserService
                                ) extends AbstractController(cc) {
-  implicit val userFormat = Json.format[User]
+  implicit val userFormat: OFormat[User] = Json.format[User]
 
   def getAll() = Action.async { implicit request: Request[AnyContent] =>
     userService.listAllItems map { items =>

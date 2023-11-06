@@ -5,7 +5,7 @@ import models.{Team, TeamList}
 
 import scala.concurrent.Future
 
-class TeamService@Inject() (items: TeamList) {
+class TeamService @Inject()(items: TeamList) {
 
   def addItem(item: Team): Future[String] = {
     items.add(item)
