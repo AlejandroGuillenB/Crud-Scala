@@ -3,22 +3,30 @@
 # https://www.playframework.com/documentation/latest/ScalaRouting
 
 # PERSON
-GET     /person                     controllers.PersonController.getAll
-GET     /person/:id                 controllers.PersonController.getById(id: Int)
-POST    /person/add                 controllers.PersonController.add
-PUT     /person/update/:id          controllers.PersonController.update(id: Int)
-DELETE  /person/delete/:id          controllers.PersonController.delete(id: Int)
+GET     /person                                 controllers.PersonController.getAll()
+GET     /person/:id                             controllers.PersonController.getById(id: Int)
+POST    /person/add                             controllers.PersonController.add()
+PUT     /person/update/:id                      controllers.PersonController.update(id: Int)
+DELETE  /person/delete/:id                      controllers.PersonController.delete(id: Int)
 
 # USER
-GET     /user                       controllers.UserController.getAll
-GET     /user/:id                   controllers.UserController.getById(id: Int)
-POST    /user/add                   controllers.UserController.add
-PUT     /user/update/:id            controllers.UserController.update(id: Int)
-DELETE  /user/delete/:id            controllers.UserController.delete(id: Int)
+GET     /user                                   controllers.UserController.getAll()
+GET     /user/:id                               controllers.UserController.getById(id: Int)
+POST    /user/add                               controllers.UserController.add()
+PUT     /user/update/:id                        controllers.UserController.update(id: Int)
+DELETE  /user/delete/:id                        controllers.UserController.delete(id: Int)
 
 # ACCOUNT
-GET     /account                       controllers.AccountController.getAll
-GET     /account/:id                   controllers.AccountController.getById(id: Int)
-POST    /account/add                   controllers.AccountController.add
-PUT     /account/update/:id            controllers.AccountController.update(id: Int)
-DELETE  /account/delete/:id            controllers.AccountController.delete(id: Int)
+GET     /account                                controllers.AccountController.getAll()
+GET     /account/:id                            controllers.AccountController.getById(id: Int)
+POST    /account/add                            controllers.AccountController.add()
+PUT     /account/update/:id                     controllers.AccountController.update(id: Int)
+DELETE  /account/delete/:id                     controllers.AccountController.delete(id: Int)
+
+# TEAM
+GET     /team                                   controllers.TeamController.getAll()
+GET     /team/account/:account                  controllers.TeamController.getByAccount(account: Int)
+GET     /team/person/:person                    controllers.TeamController.getByPerson(person: Int)
+POST    /team/add                               controllers.TeamController.add()
+PUT     /team/update/:account/:person           controllers.TeamController.update(account: Int, person: Int)
+DELETE  /team/delete/:account/:person           controllers.TeamController.delete(account: Int, person: Int)

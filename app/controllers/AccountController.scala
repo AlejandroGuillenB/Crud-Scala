@@ -13,7 +13,7 @@ class AccountController @Inject()(
                                   cc: ControllerComponents,
                                   accountService: AccountService
                                 ) extends AbstractController(cc) {
-  implicit val accountFormat = Json.format[Account]
+  implicit val accountFormat: OFormat[Account] = Json.format[Account]
 
   def getAll() = Action.async { implicit request: Request[AnyContent] =>
     accountService.listAllItems map { items =>
@@ -30,7 +30,7 @@ class AccountController @Inject()(
 
   def add() = Action.async {
     implicit request: Request[AnyContent] =>
-      AccountForm.form.bindFromRequest.fold(
+      AccountForm.form.bindFromRequest().fold(
         errorForm => {
           errorForm.errors.foreach(println)
           Future.successful(BadRequest("Error!"))
@@ -44,7 +44,7 @@ class AccountController @Inject()(
 
   def update(id: Int) = Action.async {
     implicit request: Request[AnyContent] =>
-      AccountForm.form.bindFromRequest.fold(
+      AccountForm.form.bindFromRequest().fold(
         errorsForm => {
           errorsForm.errors.foreach(println)
           Future.successful(BadRequest("Error!"))

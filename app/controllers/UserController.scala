@@ -29,28 +29,28 @@ class UserController @Inject()(
 
   def add() = Action.async {
     implicit request: Request[AnyContent] =>
-      UserForm.form.bindFromRequest.fold(
+      UserForm.form.bindFromRequest().fold(
         errorForm => {
           errorForm.errors.foreach(println)
           Future.successful(BadRequest("Error!"))
         },
         data => {
           val newUserItem = User(data.id, data.username, data.password, data.rol)
-          userService.addItem(newUserItem).map(_ => Redirect(routes.UserController.getAll))
+          userService.addItem(newUserItem).map(_ => Redirect(routes.UserController.getAll()))
         }
       )
   }
 
   def update(id: Int) = Action.async {
     implicit request: Request[AnyContent] =>
-      UserForm.form.bindFromRequest.fold(
+      UserForm.form.bindFromRequest().fold(
         errorsForm => {
           errorsForm.errors.foreach(println)
           Future.successful(BadRequest("Error!"))
         },
         data => {
           val userItem = User(id, data.username, data.password, data.rol)
-          userService.updateItem(userItem).map(_ => Redirect(routes.UserController.getAll))
+          userService.updateItem(userItem).map(_ => Redirect(routes.UserController.getAll()))
         }
       )
   }
@@ -58,7 +58,7 @@ class UserController @Inject()(
   def delete(id: Int) = Action.async {
     implicit request: Request[AnyContent] =>
       userService.deleteItem(id) map { res =>
-        Redirect(routes.UserController.getAll)
+        Redirect(routes.UserController.getAll())
       }
   }
 }
