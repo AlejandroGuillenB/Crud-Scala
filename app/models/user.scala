@@ -76,4 +76,8 @@ class UserList @Inject()(
   def listAll: Future[Seq[User]] = {
     dbConfig.db.run(userList.result)
   }
+
+  def login(userName: String, password: String): Future[Option[User]] = {
+    dbConfig.db.run(userList.filter(user => user.username === userName && user.password === password).result.headOption)
+  }
 }

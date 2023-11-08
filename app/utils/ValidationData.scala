@@ -1,4 +1,4 @@
-package validations
+package utils
 
 import javax.inject._
 

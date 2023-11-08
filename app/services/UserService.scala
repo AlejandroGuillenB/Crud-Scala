@@ -26,4 +26,8 @@ class UserService @Inject() (items: UserList){
   def listAllItems: Future[Seq[User]] = {
     items.listAll
   }
+
+  def login(userName: String, password: String): Future[Option[User]] = {
+    items.login(userName, password)
+  }
 }

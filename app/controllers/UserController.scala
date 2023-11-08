@@ -15,15 +15,15 @@ class UserController @Inject()(
   implicit val userFormat: OFormat[User] = Json.format[User]
 
   def getAll() = Action.async { implicit request: Request[AnyContent] =>
-    userService.listAllItems map { items =>
-      Ok(Json.toJson(items))
+    userService.listAllItems map { users =>
+      Ok(Json.toJson(users))
     }
   }
 
   def getById(id: Int) = Action.async {
     implicit request: Request[AnyContent] =>
-      userService.getItem(id) map { item =>
-        Ok(Json.toJson(item))
+      userService.getItem(id) map { user =>
+        Ok(Json.toJson(user))
       }
   }
 
@@ -59,6 +59,13 @@ class UserController @Inject()(
     implicit request: Request[AnyContent] =>
       userService.deleteItem(id) map { res =>
         Redirect(routes.UserController.getAll())
+      }
+  }
+
+  def login(userName: String, password: String) = Action.async {
+    implicit request: Request[AnyContent] =>
+      userService.login(userName, password) map { user =>
+        Ok(Json.toJson(user))
       }
   }
 }
