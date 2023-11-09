@@ -8,6 +8,7 @@ scalaVersion := "2.13.12"
 
 libraryDependencies ++= Seq(
   guice,
+  specs2 % Test,
   "org.scalatestplus.play" %% "scalatestplus-play" % "5.1.0" % Test,
   "org.postgresql" % "postgresql" % "42.5.4",
   "com.typesafe.play" %% "play-slick" % "5.1.0",

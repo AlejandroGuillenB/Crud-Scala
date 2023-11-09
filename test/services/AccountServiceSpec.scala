@@ -1,32 +1,47 @@
 package services
 
+import org.specs2.mutable.Specification
+import org.specs2.mock.Mockito
 import models.{Account, AccountList}
-import org.mockito.Mockito.{doReturn, mock, when}
-import org.scalatestplus.play._
-import org.scalatestplus.play.guice._
-import play.api.libs.json.Json
-import play.api.test._
-import play.api.test.Helpers._
 
+import scala.concurrent.duration._
+import scala.concurrent.Await
 
-
-class AccountServiceSpec extends PlaySpec {
+class AccountServiceSpec extends Specification with Mockito {
+  isolated
+  val accounts: AccountList = mock[AccountList]
+  val accountService = new AccountService(accounts)
 
   "AccountService" should {
-    "Add new account" in {
-      val data = Account(id = 0,
-        nameaccount = "Test",
-        nameclient = "Cidenet",
-        request = "any",
-        liable = 234567
-      )
-      val mockAccountList = mock[AccountList]
-      val accountService: AccountService = new AccountService(mockAccountList)
-      doReturn(200).when(accountService).addItem(data)
 
-      val result = accountService.addItem(data)
+    "get Item" in {
+      accounts.get(anyInt) returns scala.concurrent.Future.successful(Some(new Account(1, "nameaccount", "nameclient", "request", 1)))
+      val result = accountService.getItem(1)
+      Await.result(result, 10.seconds) === Some(new Account(1, "nameaccount", "nameclient", "request", 1))
+    }
 
-      result.mustBe(OK)
+    "update Item" in {
+      accounts.update(any) returns scala.concurrent.Future.successful(1)
+      val result = accountService.updateItem(new Account(1, "nameaccount", "nameclient", "request", 1))
+      Await.result(result, 10.seconds) === 1
+    }
+
+    "list All Items" in {
+      accounts.listAll returns scala.concurrent.Future.successful(null)
+      val result = accountService.listAllItems
+      Await.result(result, 10.seconds) === null
+    }
+
+    "add Item" in {
+      accounts.add(any) returns scala.concurrent.Future.successful("addResponse")
+      val result = accountService.addItem(new Account(1, "nameaccount", "nameclient", "request", 1))
+      Await.result(result, 10.seconds) === "replaceMeWithExpectedResult"
+    }
+
+    "delete Item" in {
+      accounts.delete(anyInt) returns scala.concurrent.Future.successful(1)
+      val result = accountService.deleteItem(1)
+      Await.result(result, 10.seconds) === 1
     }
   }
 }
