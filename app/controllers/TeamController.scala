@@ -1,11 +1,11 @@
 package controllers
 
-import com.google.inject.Inject
 import models.{Team, TeamForm}
 import play.api.libs.json.{Json, OFormat}
 import play.api.mvc.{AbstractController, AnyContent, ControllerComponents, Request}
 import services.TeamService
 
+import javax.inject.Inject
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 

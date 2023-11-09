@@ -18,7 +18,7 @@ DELETE  /user/delete/:id                        controllers.UserController.delet
 GET     /user/login/:userName/:password         controllers.UserController.login(userName: String, password: String)
 
 # ACCOUNT
-GET     /account                                controllers.AccountController.getAll()
+GET     /account                               controllers.AccountController.getAll()
 GET     /account/:id                            controllers.AccountController.getById(id: Int)
 POST    /account/add                            controllers.AccountController.add()
 PUT     /account/update/:id                     controllers.AccountController.update(id: Int)
@@ -33,8 +33,16 @@ PUT     /team/update/:account/:person           controllers.TeamController.updat
 DELETE  /team/delete/:account/:person           controllers.TeamController.delete(account: Int, person: Int)
 
 # TEAMLOG
-GET     /teamlog                                   controllers.TeamLogController.getAll()
-GET     /teamlog/account/:account                  controllers.TeamLogController.getByAccount(account: String)
-GET     /teamlog/person/:person                    controllers.TeamLogController.getByPerson(person: String)
-GET     /teamlog/dateinit/:dateInit                controllers.TeamLogController.getByDateInit(dateInit: Long)
-GET     /teamlog/dateend/:dateEnd                  controllers.TeamLogController.getByDateEnd(dateEnd: Long)
+GET     /teamlog                                controllers.TeamLogController.getAll()
+GET     /teamlog/account/:account               controllers.TeamLogController.getByAccount(account: String)
+GET     /teamlog/person/:person                 controllers.TeamLogController.getByPerson(person: String)
+GET     /teamlog/dateinit/:dateInit             controllers.TeamLogController.getByDateInit(dateInit: Long)
+GET     /teamlog/dateend/:dateEnd               controllers.TeamLogController.getByDateEnd(dateEnd: Long)
+
+# Map static resources from the /app/public folder to the /public path
+GET     /public/                                controllers.Assets.at(path="/public")
+
+# Home page
+GET     /                                       controllers.HomeController.index()
+GET     /swagger-ui/                            controllers.Assets.versioned(path="/public/swagger-ui-1.0", file)
+

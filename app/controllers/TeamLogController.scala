@@ -1,6 +1,6 @@
 package controllers
 
-import com.google.inject.Inject
+import javax.inject.Inject
 import models.TeamLog
 import play.api.libs.json._
 import play.api.mvc.{AbstractController, AnyContent, ControllerComponents, Request}

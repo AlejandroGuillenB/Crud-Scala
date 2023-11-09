@@ -6,15 +6,14 @@ import play.api.libs.json._
 import play.api.mvc._
 import services.AccountService
 
-
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
+
 class AccountController @Inject()(
                                   cc: ControllerComponents,
                                   accountService: AccountService
                                 ) extends AbstractController(cc) {
   implicit val accountFormat: OFormat[Account] = Json.format[Account]
-
   def getAll() = Action.async { implicit request: Request[AnyContent] =>
     accountService.listAllItems map { items =>
       Ok(Json.toJson(items))

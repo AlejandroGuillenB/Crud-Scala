@@ -1,29 +1,62 @@
 package services
 
-import com.google.inject.Inject
+import io.swagger.annotations.{Api, ApiOperation}
+
+import javax.inject.Inject
 import models.{Person, PersonList}
 
 import scala.concurrent.Future
 
-class PersonService @Inject() (items: PersonList){
+@Api(value = "/account")
+class PersonService @Inject() (persons: PersonList){
 
-  def addItem(item: Person): Future[String] = {
-    items.add(item)
+  @ApiOperation(
+    value = "Add person",
+    notes = "Add a new person",
+    response = classOf[models.Person],
+    httpMethod = "POST"
+  )
+  def addItem(person: Person): Future[String] = {
+    persons.add(person)
   }
 
+  @ApiOperation(
+    value = "Delete person",
+    notes = "Delete a person by id",
+    response = classOf[models.Person],
+    httpMethod = "DELETE"
+  )
   def deleteItem(id: Int): Future[Int] = {
-    items.delete(id)
+    persons.delete(id)
   }
 
-  def updateItem(item: Person): Future[Int] = {
-    items.update(item)
+  @ApiOperation(
+    value = "Update person",
+    notes = "Update a person",
+    response = classOf[models.Person],
+    httpMethod = "PUT"
+  )
+  def updateItem(person: Person): Future[Int] = {
+    persons.update(person)
   }
 
+  @ApiOperation(
+    value = "Get person by id",
+    notes = "Return a person by id",
+    response = classOf[models.Person],
+    httpMethod = "GET"
+  )
   def getItem(id: Int): Future[Option[Person]] = {
-    items.get(id)
+    persons.get(id)
   }
 
+  @ApiOperation(
+    value = "List all person",
+    notes = "Return a list with all person",
+    response = classOf[models.Person],
+    httpMethod = "GET"
+  )
   def listAllItems: Future[Seq[Person]] = {
-    items.listAll
+    persons.listAll
   }
 }
