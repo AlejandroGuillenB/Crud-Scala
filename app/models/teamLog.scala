@@ -1,6 +1,6 @@
 package models
 
-import javax.inject.Inject
+import com.google.inject.Inject
 import play.api.data.Form
 import play.api.data.Forms.mapping
 import play.api.data.Forms._
