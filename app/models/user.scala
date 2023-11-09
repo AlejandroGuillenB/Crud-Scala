@@ -7,8 +7,10 @@ import play.api.data.Forms._
 import play.api.db.slick.{DatabaseConfigProvider, HasDatabaseConfigProvider}
 import slick.jdbc.JdbcProfile
 import slick.jdbc.PostgresProfile.api._
+import pdi.jwt._
 
 import scala.concurrent.{ExecutionContext, Future}
+import com.typesafe.config.Config
 
 case class User(id: Int, username: String, password: String, rol: Int)
 
@@ -43,11 +45,18 @@ class UserList @Inject()(
                         )(
                           implicit executionContext: ExecutionContext
                         ) extends HasDatabaseConfigProvider[JdbcProfile] {
+
   val userList = TableQuery[UserTableDef]
 
+  //val applicationConf: Config = ConfigFactory.load("appliccation.conf")
+  val key = "secretKey"
+  val algo = JwtAlgorithm.HS256
+
   def add(userItem: User): Future[String] = {
+    val passwordEncode = JwtJson.encode(userItem.password, key, algo)
+    val newUser = User(userItem.id, userItem.username, password = passwordEncode, userItem.rol)
     dbConfig.db
-      .run(userList += userItem)
+      .run(userList += newUser)
       .map(res => "User successfully added")
       .recover {
         case ex: Exception => {
@@ -78,6 +87,8 @@ class UserList @Inject()(
   }
 
   def login(userName: String, password: String): Future[Option[User]] = {
-    dbConfig.db.run(userList.filter(user => user.username === userName && user.password === password).result.headOption)
+    val passwordEncode = JwtJson.encode(password, key, algo)
+    dbConfig.db.run(userList.filter(user =>
+      user.username === userName && user.password === passwordEncode).result.headOption)
   }
 }

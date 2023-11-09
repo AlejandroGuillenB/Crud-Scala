@@ -8,6 +8,7 @@ import services.UserService
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
+
 class UserController @Inject()(
                                  cc: ControllerComponents,
                                  userService: UserService
