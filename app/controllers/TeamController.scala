@@ -15,7 +15,8 @@ class TeamController @Inject()(
                              ) extends AbstractController(cc) {
   implicit val teamFormat: OFormat[Team] = Json.format[Team]
 
-  def getAll() = Action.async { implicit request: Request[AnyContent] =>
+  def getAll() = Action.async {
+    implicit request: Request[AnyContent] =>
     teamService.listAllItems map { items =>
       Ok(Json.toJson(items))
     }

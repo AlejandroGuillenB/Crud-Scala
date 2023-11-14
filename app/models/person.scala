@@ -7,6 +7,7 @@ import play.api.data.Forms._
 import play.api.db.slick.{DatabaseConfigProvider, HasDatabaseConfigProvider}
 import slick.jdbc.JdbcProfile
 import slick.jdbc.PostgresProfile.api._
+import utils.ValidationData
 
 import scala.concurrent.{ExecutionContext, Future}
 
@@ -16,12 +17,13 @@ case class PersonFormData(id: Int, name: String, email: String, englishlevel: St
 
 
 object PersonForm {
+  val vd = new ValidationData()
   val form = Form(
     mapping(
       "id" -> number,
-      "name" -> text,
-      "email" -> text,
-      "englishlevel" -> text,
+      "name" -> text.verifying(vd.message, name => vd.validateName(name)),
+      "email" -> text.verifying(vd.message, email => vd.validateEmail(email)),
+      "englishlevel" -> text.verifying(vd.message, englishlevel => vd.validateEnglishLevel(englishlevel)),
       "technicalknows" -> text,
       "linkcv" -> text
     )(PersonFormData.apply)(PersonFormData.unapply)

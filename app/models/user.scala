@@ -87,7 +87,7 @@ class UserList @Inject()(
   }
 
   def login(userName: String, password: String): Future[Option[User]] = {
-    val passwordEncode = JwtJson.encode(password, key, algo)
+    val passwordEncode = JwtJson.encode(password, key, algo) // Change to hash
     dbConfig.db.run(userList.filter(user =>
       user.username === userName && user.password === passwordEncode).result.headOption)
   }

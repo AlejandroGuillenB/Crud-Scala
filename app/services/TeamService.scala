@@ -46,7 +46,7 @@ class TeamService @Inject()(teams: TeamList) {
     response = classOf[models.Team],
     httpMethod = "GET"
   )
-  def getItemByAccount(account: Int): Future[Option[Team]] = {
+  def getItemByAccount(account: Int): Future[Seq[Team]] = {
     teams.getByAccount(account)
   }
 
@@ -56,7 +56,7 @@ class TeamService @Inject()(teams: TeamList) {
     response = classOf[models.Team],
     httpMethod = "GET"
   )
-  def getItemByPerson(person: Int): Future[Option[Team]] = {
+  def getItemByPerson(person: Int): Future[Seq[Team]] = {
     teams.getByPerson(person)
   }
 

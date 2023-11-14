@@ -1,0 +1,36 @@
+<!DOCTYPE html><html lang=”en”>
+<head>
+    <meta charset=”UTF-8">
+    <meta http-equiv=”X-UA-COMPATIBLE” content=”IE=Edge”>
+    <title>Swagger UI</title>
+    <link rel=”stylesheet” type=”text/css” href=”../docs/sitedocs/assets/lib/swagger-ui/swagger-ui.css” >
+    <link rel=”icon” type=”image/png” href=”../docs/sitedocs/assets/lib/swagger-ui/favicon-32x32.png” sizes=”32x32" />
+    <link rel=”icon” type=”image/png” href=”../docs/sitedocs/assets/lib/swagger-ui/favicon-16x16.png” sizes=”16x16" />
+</head>
+<body>
+<div id="swagger-ui"></div>
+<script src="../docs/sitedocs/assets/lib/swagger-ui/swagger-ui-bundle.js"> </script>
+<script src="../docs/sitedocs/assets/lib/swagger-ui/swagger-ui-standalone-preset.js"> </script>
+<script>
+    const SWAGGER_URL = document.location.origin
+    const SWAGGER_HOST = document.location.host
+    const SWAGGER_DOCS = SWAGGER_URL+'/api-docs/projab'
+    window.onload = function() {
+       //Build a system
+         const ui = SwaggerUIBundle({
+       //Sending JWT token with the URL as endpoint is secured
+           url: SWAGGER_DOCS+"?host="+SWAGGER_HOST+"&jwt="+getJWTforRequest(),
+           dom_id: '#swagger-ui',
+           deepLinking: true,
+           presets: [
+             SwaggerUIBundle.presets.apis
+            ]
+        })
+        window.ui = ui
+    }
+    window.onbeforeunload = function(){
+       cleanUp()
+    }
+</script>
+</body>
+</html>

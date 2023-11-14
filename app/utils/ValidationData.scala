@@ -24,13 +24,8 @@ class ValidationData @Inject() () {
     true
   }
 
-  def validateEmail(email: String, pemail: String, statusEdit: Boolean): Boolean = {
+  def validateEmail(email: String): Boolean = {
     if (this.valid) {
-      if (statusEdit) {
-        if (email == pemail) {
-          return true
-        }
-      }
       if (this.checkEmpty(email)) {
         this.message = "E-mail is empty."
         return false
@@ -53,7 +48,7 @@ class ValidationData @Inject() () {
   def validateEnglishLevel(englishlevel: String): Boolean = {
     if (this.valid) {
       if (this.checkEmpty(englishlevel)) {
-        this.message = "Gender is empty."
+        this.message = "English level is empty."
         return false
       } else {
         if (!this.checkMinMaxString(englishlevel, 2, 2)) {

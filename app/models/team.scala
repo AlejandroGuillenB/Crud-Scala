@@ -69,12 +69,12 @@ class TeamList @Inject()(
       )
   }
 
-  def getByAccount(account: Int): Future[Option[Team]] = {
-    dbConfig.db.run(teamList.filter(_.account === account).result.headOption)
+  def getByAccount(account: Int): Future[Seq[Team]] = {
+    dbConfig.db.run(teamList.filter(_.account === account).result)
   }
 
-  def getByPerson(person: Int): Future[Option[Team]] = {
-    dbConfig.db.run(teamList.filter(_.person === person).result.headOption)
+  def getByPerson(person: Int): Future[Seq[Team]] = {
+    dbConfig.db.run(teamList.filter(_.person === person).result)
   }
 
   def listAll: Future[Seq[Team]] = {
